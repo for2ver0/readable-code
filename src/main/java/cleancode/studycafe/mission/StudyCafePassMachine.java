@@ -34,11 +34,13 @@ public class StudyCafePassMachine {
             if (studyCafePassType == StudyCafePassType.FIXED) {
                 StudyCafeLockerPass lockerPass = getStudyCafeLockerPass(selectedPass);
 
-                boolean lockerSelection = false;
-                if (lockerPass != null) {
-                    outputHandler.askLockerPass(lockerPass);
-                    lockerSelection = inputHandler.getLockerSelection();
+                if (lockerPass == null) {
+                    outputHandler.showPassOrderSummary(selectedPass, null);
+                    return;
                 }
+
+                outputHandler.askLockerPass(lockerPass);
+                boolean lockerSelection = inputHandler.getLockerSelection();
 
                 if (lockerSelection) {
                     outputHandler.showPassOrderSummary(selectedPass, lockerPass);
