@@ -28,25 +28,25 @@ public class StudyCafePassMachine {
             outputHandler.showPassListForSelection(studyCafePasses);
             StudyCafePass selectedPass = inputHandler.getSelectPass(studyCafePasses);
 
-            if (studyCafePassType != StudyCafePassType.FIXED) {
+            if (isNotFixedPass(studyCafePassType)) {
                 outputHandler.showPassOrderSummary(selectedPass, null);
+                return;
             }
-            if (studyCafePassType == StudyCafePassType.FIXED) {
-                StudyCafeLockerPass lockerPass = getStudyCafeLockerPass(selectedPass);
 
-                if (lockerPass == null) {
-                    outputHandler.showPassOrderSummary(selectedPass, null);
-                    return;
-                }
+            StudyCafeLockerPass lockerPass = getStudyCafeLockerPass(selectedPass);
 
-                outputHandler.askLockerPass(lockerPass);
-                boolean lockerSelection = inputHandler.getLockerSelection();
+            if (lockerPass == null) {
+                outputHandler.showPassOrderSummary(selectedPass, null);
+                return;
+            }
 
-                if (lockerSelection) {
-                    outputHandler.showPassOrderSummary(selectedPass, lockerPass);
-                } else {
-                    outputHandler.showPassOrderSummary(selectedPass, null);
-                }
+            outputHandler.askLockerPass(lockerPass);
+            boolean lockerSelection = inputHandler.getLockerSelection();
+
+            if (lockerSelection) {
+                outputHandler.showPassOrderSummary(selectedPass, lockerPass);
+            } else {
+                outputHandler.showPassOrderSummary(selectedPass, null);
             }
         } catch (AppException e) {
             outputHandler.showSimpleMessage(e.getMessage());
@@ -71,6 +71,10 @@ public class StudyCafePassMachine {
                 )
                 .findFirst()
                 .orElse(null);
+    }
+
+    private static boolean isNotFixedPass(StudyCafePassType studyCafePassType) {
+        return studyCafePassType != StudyCafePassType.FIXED;
     }
 
 }
