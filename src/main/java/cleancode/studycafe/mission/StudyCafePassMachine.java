@@ -24,23 +24,14 @@ public class StudyCafePassMachine {
             outputHandler.askPassTypeSelection();
             StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
 
-            if (studyCafePassType == StudyCafePassType.HOURLY) {
-                List<StudyCafePass> hourlyPasses = getStudyCafePasses(studyCafePassType);
-                outputHandler.showPassListForSelection(hourlyPasses);
-                StudyCafePass selectedPass = inputHandler.getSelectPass(hourlyPasses);
-                outputHandler.showPassOrderSummary(selectedPass, null);
-            }
-            if (studyCafePassType == StudyCafePassType.WEEKLY) {
-                List<StudyCafePass> weeklyPasses = getStudyCafePasses(studyCafePassType);
-                outputHandler.showPassListForSelection(weeklyPasses);
-                StudyCafePass selectedPass = inputHandler.getSelectPass(weeklyPasses);
+            List<StudyCafePass> studyCafePasses = getStudyCafePasses(studyCafePassType);
+            outputHandler.showPassListForSelection(studyCafePasses);
+            StudyCafePass selectedPass = inputHandler.getSelectPass(studyCafePasses);
+
+            if (studyCafePassType != StudyCafePassType.FIXED) {
                 outputHandler.showPassOrderSummary(selectedPass, null);
             }
             if (studyCafePassType == StudyCafePassType.FIXED) {
-                List<StudyCafePass> fixedPasses = getStudyCafePasses(studyCafePassType);
-                outputHandler.showPassListForSelection(fixedPasses);
-                StudyCafePass selectedPass = inputHandler.getSelectPass(fixedPasses);
-
                 List<StudyCafeLockerPass> lockerPasses = studyCafeFileHandler.readLockerPasses();
                 StudyCafeLockerPass lockerPass = lockerPasses.stream()
                         .filter(option ->
