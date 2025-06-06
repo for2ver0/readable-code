@@ -55,4 +55,8 @@ public class StudyCafePass {
         }
         return "";
     }
+
+    public boolean doesNotFixedType() {
+        return this.passType != StudyCafePassType.FIXED;
+    }
 }
