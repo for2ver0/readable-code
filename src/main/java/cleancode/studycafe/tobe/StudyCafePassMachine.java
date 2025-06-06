@@ -55,7 +55,7 @@ public class StudyCafePassMachine {
     }
 
     private Optional<StudyCafeLockerPass> selectLockerPass(StudyCafePass selectedPass) {
-        if (selectedPass.doesNotFixedType()) {
+        if (selectedPass.cannotUseLocker()) {
             return Optional.empty();
         }
 
