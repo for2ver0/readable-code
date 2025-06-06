@@ -1,7 +1,5 @@
 package cleancode.studycafe.tobe.model;
 
-import java.util.Set;
-
 public class StudyCafePass {
 
     private final StudyCafePassType passType;
@@ -58,9 +56,7 @@ public class StudyCafePass {
         return "";
     }
 
-    private static final Set<StudyCafePassType> LOCKER_TYPES = Set.of(StudyCafePassType.FIXED);
-
     public boolean cannotUseLocker() {
-        return !LOCKER_TYPES.contains(this.passType);
+        return this.passType.isNotLockerType();
     }
 }
