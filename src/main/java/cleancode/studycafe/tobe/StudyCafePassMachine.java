@@ -35,15 +35,20 @@ public class StudyCafePassMachine {
 
     private StudyCafePass selectPass() {
         outputHandler.askPassTypeSelection();
-        StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
+        StudyCafePassType passType = inputHandler.getPassTypeSelectingUserAction();
 
-        List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
-        List<StudyCafePass> passCandidates = studyCafePasses.stream()
-                .filter(studyCafePass -> studyCafePass.getPassType() == studyCafePassType)
-                .toList();
+        List<StudyCafePass> passCandidates = findPassCandidatesBy(passType);
 
         outputHandler.showPassListForSelection(passCandidates);
         return inputHandler.getSelectPass(passCandidates);
+    }
+
+    private List<StudyCafePass> findPassCandidatesBy(StudyCafePassType studyCafePassType) {
+        List<StudyCafePass> allPasses = studyCafeFileHandler.readStudyCafePasses();
+
+        return allPasses.stream()
+                .filter(studyCafePass -> studyCafePass.getPassType() == studyCafePassType)
+                .toList();
     }
 
     private StudyCafeLockerPass selectLockerPass(StudyCafePass selectedPass) {
