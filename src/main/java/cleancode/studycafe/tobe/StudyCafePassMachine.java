@@ -29,20 +29,14 @@ public class StudyCafePassMachine {
                     .filter(studyCafePass -> studyCafePass.getPassType() == studyCafePassType)
                     .toList();
 
-            if (studyCafePassType == StudyCafePassType.HOURLY) {
-                outputHandler.showPassListForSelection(passCandidates);
-                StudyCafePass selectedPass = inputHandler.getSelectPass(passCandidates);
+            outputHandler.showPassListForSelection(passCandidates);
+            StudyCafePass selectedPass = inputHandler.getSelectPass(passCandidates);
 
+            if (studyCafePassType == StudyCafePassType.HOURLY) {
                 outputHandler.showPassOrderSummary(selectedPass, null);
             } else if (studyCafePassType == StudyCafePassType.WEEKLY) {
-                outputHandler.showPassListForSelection(passCandidates);
-                StudyCafePass selectedPass = inputHandler.getSelectPass(passCandidates);
-
                 outputHandler.showPassOrderSummary(selectedPass, null);
             } else if (studyCafePassType == StudyCafePassType.FIXED) {
-                outputHandler.showPassListForSelection(passCandidates);
-                StudyCafePass selectedPass = inputHandler.getSelectPass(passCandidates);
-
                 List<StudyCafeLockerPass> lockerPasses = studyCafeFileHandler.readLockerPasses();
                 StudyCafeLockerPass lockerPass = lockerPasses.stream()
                         .filter(option ->
