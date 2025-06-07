@@ -1,49 +1,11 @@
 package cleancode.studycafe.tobe.model;
 
-public class StudyCafePass {
+public interface StudyCafePass {
 
-    private final StudyCafePassType passType;
-    private final int duration;
-    private final int price;
-    private final double discountRate;
+    StudyCafePassType getPassType();
 
-    private StudyCafePass(StudyCafePassType passType, int duration, int price, double discountRate) {
-        this.passType = passType;
-        this.duration = duration;
-        this.price = price;
-        this.discountRate = discountRate;
-    }
+    int getDuration();
 
-    public static StudyCafePass of(StudyCafePassType passType, int duration, int price, double discountRate) {
-        return new StudyCafePass(passType, duration, price, discountRate);
-    }
+    int getPrice();
 
-    public boolean cannotUseLocker() {
-        return this.passType.isNotLockerType();
-    }
-
-    public boolean isSameDurationType(StudyCafeLockerPass lockerPass) {
-        return lockerPass.isSamePassType(this.passType)
-                && lockerPass.isSameDuration(this.duration);
-    }
-
-    public boolean isSamePassType(StudyCafePassType passType) {
-        return this.passType == passType;
-    }
-
-    public StudyCafePassType getPassType() {
-        return passType;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public double getDiscountRate() {
-        return discountRate;
-    }
 }
