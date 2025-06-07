@@ -49,19 +49,21 @@ public class StudyCafePassMachine {
             return Optional.empty();
         }
 
-        StudyCafeLockerPass lockerPassCandidate = findLockerPassCandidateBy(selectedPass);
+        Optional<StudyCafeLockerPass> lockerPassCandidate = findLockerPassCandidateBy(selectedPass);
 
-        if (lockerPassCandidate != null) {
-            boolean isLockerSelected = ioHandler.askLockerPass(lockerPassCandidate);
+        if (lockerPassCandidate.isPresent()) {
+            StudyCafeLockerPass lockerPass = lockerPassCandidate.get();
+
+            boolean isLockerSelected = ioHandler.askLockerPass(lockerPass);
             if (isLockerSelected) {
-                return Optional.of(lockerPassCandidate);
+                return Optional.of(lockerPass);
             }
         }
 
         return Optional.empty();
     }
 
-    private StudyCafeLockerPass findLockerPassCandidateBy(StudyCafePass pass) {
+    private Optional<StudyCafeLockerPass> findLockerPassCandidateBy(StudyCafePass pass) {
         StudyCafeLockerPasses allLockerPasses = studyCafeFileHandler.readLockerPasses();
         return allLockerPasses.findLockerPassBy(pass);
     }
