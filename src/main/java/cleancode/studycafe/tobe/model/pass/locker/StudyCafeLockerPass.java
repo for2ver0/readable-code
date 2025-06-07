@@ -1,4 +1,7 @@
-package cleancode.studycafe.tobe.model;
+package cleancode.studycafe.tobe.model.pass.locker;
+
+import cleancode.studycafe.tobe.model.pass.StudyCafePass;
+import cleancode.studycafe.tobe.model.pass.StudyCafePassType;
 
 public class StudyCafeLockerPass implements StudyCafePass {
 
