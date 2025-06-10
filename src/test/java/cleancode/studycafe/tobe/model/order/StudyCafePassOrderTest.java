@@ -26,4 +26,20 @@ class StudyCafePassOrderTest {
         assertThat(discountPrice).isEqualTo(25000);
     }
 
+    @DisplayName("주문한 이용권의 총 금액을 계산한다.")
+    @Test
+    void calculate_the_total_price_of_the_pass_order() {
+        // given
+        StudyCafeSeatPass seatPass = StudyCafeSeatPass.of(StudyCafePassType.FIXED, 4, 500000, 0.05);
+        StudyCafeLockerPass lockerPass = StudyCafeLockerPass.of(StudyCafePassType.FIXED, 4, 20000);
+
+        StudyCafePassOrder passOrder = StudyCafePassOrder.of(seatPass, lockerPass);
+
+        // when
+        int discountPrice = passOrder.getTotalPrice();
+
+        // then
+        assertThat(discountPrice).isEqualTo(495000);
+    }
+
 }
