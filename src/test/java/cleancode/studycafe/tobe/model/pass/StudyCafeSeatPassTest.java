@@ -153,4 +153,42 @@ class StudyCafeSeatPassTest {
         Assertions.assertFalse(differentDurationType);
     }
 
+    @DisplayName("좌석 이용권의 타입은 주어진 이용권 타입과 같다.")
+    @Test
+    void The_type_of_seat_pass_is_the_same_as_the_type_of_pass_given() {
+        // given
+        StudyCafePassType seatPassType = StudyCafePassType.HOURLY;
+        int seatDuration = 0;
+        int seatPrice = 0;
+        double discountRate = 0;
+
+        StudyCafeSeatPass seatPass = StudyCafeSeatPass.of(seatPassType, seatDuration, seatPrice, discountRate);
+        StudyCafePassType givenPassType = StudyCafePassType.HOURLY;
+
+        // when
+        boolean samePassType = seatPass.isSamePassType(givenPassType);
+
+        // then
+        Assertions.assertTrue(samePassType);
+    }
+
+    @DisplayName("좌석 이용권의 타입은 주어진 이용권 타입과 다르다.")
+    @Test
+    void The_type_of_seat_pass_is_different_from_the_type_of_pass_given() {
+        // given
+        StudyCafePassType seatPassType = StudyCafePassType.HOURLY;
+        int seatDuration = 0;
+        int seatPrice = 0;
+        double discountRate = 0;
+
+        StudyCafeSeatPass seatPass = StudyCafeSeatPass.of(seatPassType, seatDuration, seatPrice, discountRate);
+        StudyCafePassType givenPassType = StudyCafePassType.WEEKLY;
+
+        // when
+        boolean differentPassType = seatPass.isSamePassType(givenPassType);
+
+        // then
+        Assertions.assertFalse(differentPassType);
+    }
+
 }
